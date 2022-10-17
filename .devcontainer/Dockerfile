@@ -17,4 +17,4 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 RUN conda install -y -c conda-forge miniwdl
-UN conda install -y -c conda-forge cromwell
+RUN conda install -y -c conda-forge cromwell
