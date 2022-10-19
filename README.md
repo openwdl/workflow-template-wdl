@@ -7,7 +7,7 @@ Devcontainer specs:
 - [Dockerfile](.devcontainer/Dockerfile)
 
 # Getting started
-- Create a new repo in GitHub using this [template](https://github.com/openwdl workflow-template-wdl/generate).
+- Create a new repo in GitHub using this [template](https://github.com/openwdl/workflow-template-wdl/generate).
 - Open the repo in [Codespaces](../../codespaces)
 
 ## Setup Verification
