@@ -1,0 +1,11 @@
+# Dockstore config version, not pipeline version
+# Visit for full list of fields: https://docs.dockstore.org/en/stable/assets/templates/workflows/workflows.html#full-template-with-explanation-of-all-available-fields
+version: 1.2
+workflows:
+  - subclass: WDL
+    publish: True
+    primaryDescriptorPath: /hello.wdl # Change to point to your pipeline wdl
+    testParameterFiles:
+    authors:
+      - orcid: <String> # Add authors
+    name: hello

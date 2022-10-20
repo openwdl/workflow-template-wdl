@@ -18,4 +18,5 @@ Remember that PRs should be made against the dev branch, unless you're preparing
 - [ ] Ensure the test suite passes.
 - [ ] Documentation is updated.
 - [ ] `CHANGELOG.md` is updated.
+- [ ] `.dockstore.yml` is updated.
 - [ ] `README.md` is updated.
