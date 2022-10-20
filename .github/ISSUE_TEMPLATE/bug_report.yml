@@ -1,0 +1,40 @@
+name: Bug report
+description: Report something that is broken or incorrect
+labels: bug
+body:
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: command_used
+    attributes:
+      label: Command used and terminal output
+      description: Steps to reproduce the behaviour. Please paste the command you used to launch the pipeline and the output from your terminal.
+      render: console
+      placeholder: |
+
+        Some output where something broke
+
+  - type: textarea
+    id: files
+    attributes:
+      label: Relevant files
+      description: |
+        Please drag and drop the relevant files here. Create a `.zip` archive if the extension is not allowed.
+
+  - type: textarea
+    id: system
+    attributes:
+      label: System information
+      description: |
+        * Engine version _(eg.Cromwell_80)_
+        * Hardware _(eg. HPC, Desktop, Cloud)_
+        * Executor _(eg. slurm, GCP, Azure Batch)_
+        * Container engine: _(e.g. Docker, Singularity, Conda)_
+        * OS _(eg. CentOS Linux, macOS, Linux Mint)_
