@@ -39,6 +39,7 @@ jobs:
         python-version: 3.9
     - name: Install Cromwell and Womtool
       run: |
+        conda update -n base -c defaults conda
         conda install -c conda-forge cromwell
     - name: Validate wdls with Womtool
       run: |
@@ -47,7 +48,7 @@ jobs:
         files=$(find . -name '*.wdl')
         for file in $files; do
           echo "  [***] $file [***]"
-          womtool validate "$file"
+          $CONDA/bin/womtool validate "$file"
           EXITCODE=$(($? || EXITCODE))
         done
         exit $EXITCODE
