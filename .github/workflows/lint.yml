@@ -1,0 +1,54 @@
+name: wdl-check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  miniwdl_check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install miniwdl
+      run: |
+        python -m pip install --upgrade pip
+        pip3 install miniwdl
+    - name: Run miniwdl
+      run: |
+        EXITCODE=0
+        echo "Checking WDL files using \`miniwdl check\`."
+        files=$(find . -name '*.wdl')
+        for file in $files; do
+          echo "  [***] $file [***]"
+          miniwdl check "$file"
+          EXITCODE=$(($? || EXITCODE))
+        done
+        exit $EXITCODE
+  womtool_check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Cromwell and Womtool
+      run: |
+        conda install -c bioconda cromwell
+    - name: Validate wdls with Womtool
+      run: |
+        EXITCODE=0
+        echo "Checking WDL files using \`womtool validate\`."
+        files=$(find . -name '*.wdl')
+        for file in $files; do
+          echo "  [***] $file [***]"
+          womtool validate "$file"
+          EXITCODE=$(($? || EXITCODE))
+        done
+        exit $EXITCODE
+
