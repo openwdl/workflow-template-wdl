@@ -39,7 +39,7 @@ jobs:
         python-version: 3.9
     - name: Install Cromwell and Womtool
       run: |
-        conda install -c bioconda cromwell
+        conda install -c conda-forge cromwell
     - name: Validate wdls with Womtool
       run: |
         EXITCODE=0
