@@ -24,3 +24,7 @@ RUN cargo +nightly build
 RUN conda install -y -c conda-forge miniwdl
 RUN conda install -y -c conda-forge cromwell
 RUN cargo install sprocket
+RUN conda install -y -c conda-forge \
+    cromwell \
+    miniwdl \
+    shellcheck
