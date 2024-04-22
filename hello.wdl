@@ -5,9 +5,9 @@ task hello {
     String name
   }
 
-  command {
+  command <<<
     echo 'hello ${name}!'
-  }
+  >>>
 
   output {
     File response = stdout()
@@ -15,6 +15,12 @@ task hello {
 
   runtime {
    docker: 'ubuntu:22.04'
+  }
+
+  parameter_meta {
+    name: {
+      help: "String to echo for task"
+    }
   }
 }
 
