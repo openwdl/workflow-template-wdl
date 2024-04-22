@@ -52,4 +52,33 @@ jobs:
           EXITCODE=$(($? || EXITCODE))
         done
         exit $EXITCODE
+  sprocket-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Update Rust
+      run: rustup update nightly && rustup default nightly 
+    - name: Install sprocket
+    - run: cargo install sprocket
+    - name: Validate wdls with Sprocket
+      run: |
+        EXITCODE=0
+        echo "Checking WDL files using \`sprocket lint\`."
+        files=$(find . -name '*.wdl')
+        for file in $files; do
+          echo "  [***] $file [***]"
+          $CONDA/bin/womtool validate "$file"
+          EXITCODE=$(($? || EXITCODE))
+        done
+        exit $EXITCODE 
+
+    lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update Rust
+        run: rustup update nightly && rustup default nightly 
+      - name: Install clippy
+        run: rustup component add clippy
+      - run: cargo clippy --all-features -- --deny warnings
 
