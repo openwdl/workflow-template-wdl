@@ -59,7 +59,7 @@ jobs:
     - name: Update Rust
       run: rustup update nightly && rustup default nightly 
     - name: Install sprocket
-    - run: cargo install sprocket
+      run: cargo install sprocket
     - name: Validate wdls with Sprocket
       run: |
         EXITCODE=0
