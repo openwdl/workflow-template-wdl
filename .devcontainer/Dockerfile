@@ -13,17 +13,19 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
     && rm -rf /tmp/conda-tmp
 
 # Install Rustup
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-RUN rustup toolchain install nightly 
-RUN cargo +nightly build
+ENV RUSTUP_HOME /opt/rustup
+ENV CARGO_HOME /opt/cargo
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain nightly -y
+ENV PATH="${PATH}:/opt/cargo/bin:/opt/cargo/env"
+RUN echo "source /opt/cargo/env" >> ~/.bashrc && \
+. /opt/cargo/env && \
+cargo install sprocket
+
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-RUN conda install -y -c conda-forge miniwdl
-RUN conda install -y -c conda-forge cromwell
-RUN cargo install sprocket
 RUN conda install -y -c conda-forge \
     cromwell \
     miniwdl \
