@@ -25,6 +25,25 @@ Devcontainer specs:
 - should print numerous log messages, and conclude with... 
 - `miniwdl run_self_test OK` 
 
+#### Test cromwell/womtools installation
+
+- open a command prompt and run...
+- `cromwell run test/test.wdl`
+- …test of the example workflow
+- should print numerous log messages, and conclude with... 
+- `Workflow HelloWorld complete. Final Outputs:` 
+- `womtool --help`
+- should print help documentation 
+
+#### Test sprocket installation
+
+- open a command prompt and run...
+- `sprocket lint test/test.wdl`
+- should print the following error
+- ```
+workflow HelloWorld {
+^ The following tokens are required: document.
+```
 
 
 
