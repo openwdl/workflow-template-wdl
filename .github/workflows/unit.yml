@@ -27,7 +27,8 @@ jobs:
       run: >- 
         pytest --keep-workflow-wd-on-fail --git-aware
         --symlink tests/ --basetemp ~/temp
-        ls -ltr ~/temp/*
+    - name: Check files 
+      run: ls -ltr ~/temp/*
     - name: Check miniwdl log in case of failure.
       if: ${{ failure() }}
       # Get the last 1000 lines of the miniwdl log to catch the error.
