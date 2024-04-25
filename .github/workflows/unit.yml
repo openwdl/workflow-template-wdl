@@ -25,7 +25,7 @@ jobs:
     - name: Run unit tests
       # Use --symlink to limit disk usage.
       run: >- 
-        pytest --keep-workflow-wd-on-fail --git-aware
+        pytest --keep-workflow-wd --git-aware
         --symlink tests/ --basetemp ~/temp
     - name: Check files 
       run: ls -ltr ~/temp/*
