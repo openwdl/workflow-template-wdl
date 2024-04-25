@@ -21,24 +21,25 @@ jobs:
         python -m pip install --upgrade pip
         pip3 install miniwdl
         pip3 install pytest-workflow
+        mkdir ~/temp
     - name: Run unit tests
       # Use --symlink to limit disk usage.
       run: >- 
-        pytest --keep-workflow-wd-on-fail 
+        pytest --keep-workflow-wd-on-fail --git-aware
         --symlink tests/ 
     - name: Check miniwdl log in case of failure.
       if: ${{ failure() }}
       # Get the last 1000 lines of the miniwdl log to catch the error.
-      run: bash -c 'tail -n 1000 /tmp/pytest_workflow_*/*/log.out'
+      run: bash -c 'tail -n 1000 ~/temp/pytest_workflow_*/*/log.out'
     - name: Check job stderr messages in case of failure
       if: ${{ failure() }}
       run: >- 
         bash -c '
-        for file in $(find /tmp -name stderr); 
+        for file in $(find ~/temp -name stderr); 
         do echo $file; cat $file; done'
     - name: Check job stdout messages in case of failure
       if: ${{ failure() }}
       run: >- 
         bash -c '
-        for file in $(find /tmp -name stdout); 
+        for file in $(find ~/temp -name stdout); 
         do echo $file; cat $file; done'
