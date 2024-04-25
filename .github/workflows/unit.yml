@@ -32,7 +32,8 @@ jobs:
         pytest --keep-workflow-wd --git-aware --tag ${{ matrix.test }} 
         --symlink tests/ --basetemp ~/temp
     - name: Check files 
-      run: ls -ltr  /home/runner/temp/
+      if: ${{ failure() }}
+      run: ls -ltr /home/runner/temp/
     - name: Check miniwdl log in case of failure.
       if: ${{ failure() }}
       # Get the last 1000 lines of the miniwdl log to catch the error.
@@ -47,5 +48,5 @@ jobs:
       if: ${{ failure() }}
       run: >- 
         bash -c '
-        for file in $(find/home/runner/temp/ -name stdout); 
+        for file in $(find /home/runner/temp/ -name stdout); 
         do echo $file; cat $file; done'
