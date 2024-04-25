@@ -26,7 +26,7 @@ jobs:
       # Use --symlink to limit disk usage.
       run: >- 
         pytest --keep-workflow-wd-on-fail --git-aware
-        --symlink tests/ 
+        --symlink tests/ --basetemp ~/temp
     - name: Check miniwdl log in case of failure.
       if: ${{ failure() }}
       # Get the last 1000 lines of the miniwdl log to catch the error.
