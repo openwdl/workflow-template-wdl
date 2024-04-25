@@ -37,16 +37,16 @@ jobs:
     - name: Check miniwdl log in case of failure.
       if: ${{ failure() }}
       # Get the last 1000 lines of the miniwdl log to catch the error.
-      run: bash -c 'tail -n 1000 /home/runner/temp/pytest_workflow_*/*/log.out'
+      run: bash -c 'tail -n 1000 /home/runner/temp/*/log.out'
     - name: Check job stderr messages in case of failure
       if: ${{ failure() }}
       run: >- 
         bash -c '
-        for file in $(find /home/runner/temp/ -name stderr); 
+        for file in $(find /home/runner/temp/ -name stderr.txt); 
         do echo $file; cat $file; done'
     - name: Check job stdout messages in case of failure
       if: ${{ failure() }}
       run: >- 
         bash -c '
-        for file in $(find /home/runner/temp/ -name stdout); 
+        for file in $(find /home/runner/temp/ -name stdout.txt); 
         do echo $file; cat $file; done'
