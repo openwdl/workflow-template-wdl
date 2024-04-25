@@ -1,6 +1,6 @@
 - name: test-hello
   command: miniwdl run -i tests/inputs/hello.inputs.json -d test-output/ --task hello hello.wdl
   files:
-    - path: test-output/output_links/stdout.txt
+    - path: test-output/*/stdout.txt
       contains:                        
         - 'hello Test!'
