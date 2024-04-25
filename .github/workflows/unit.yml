@@ -10,6 +10,11 @@ defaults:
 jobs:
   miniwdl_check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test:
+          - sanity
+          - test-hello
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
@@ -25,23 +30,21 @@ jobs:
     - name: Run unit tests
       # Use --symlink to limit disk usage.
       run: >- 
-        pytest --keep-workflow-wd --git-aware
+        pytest --keep-workflow-wd --git-aware --tag ${{ matrix.test }} 
         --symlink tests/ --basetemp ~/temp
-    - name: Check files 
-      run: ls -ltr  /home/runner/temp/
     - name: Check miniwdl log in case of failure.
       if: ${{ failure() }}
       # Get the last 1000 lines of the miniwdl log to catch the error.
-      run: bash -c 'tail -n 1000 ~/temp/pytest_workflow_*/*/log.out'
+      run: bash -c 'tail -n 1000 /home/runner/temp/pytest_workflow_*/*/log.out'
     - name: Check job stderr messages in case of failure
       if: ${{ failure() }}
       run: >- 
         bash -c '
-        for file in $(find ~/temp -name stderr); 
+        for file in $(find /home/runner/temp/ -name stderr); 
         do echo $file; cat $file; done'
     - name: Check job stdout messages in case of failure
       if: ${{ failure() }}
       run: >- 
         bash -c '
-        for file in $(find ~/temp -name stdout); 
+        for file in $(find/home/runner/temp/ -name stdout); 
         do echo $file; cat $file; done'

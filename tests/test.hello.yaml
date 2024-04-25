@@ -1,2 +1,5 @@
-- name: hello
+- name: test-hello
   command: miniwdl run -i tests/inputs/hello.inputs.json -d test-output/ --task hello hello.wdl
+  stdout:                            
+    contains:                        
+      - "hello Test!"
