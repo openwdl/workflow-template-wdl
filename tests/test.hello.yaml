@@ -1,0 +1,5 @@
+- name: hello
+  command: miniwdl run -i tests/inputs/hello.inputs.json -d test-output/ --task hello hello.wdl
+  stdout:                            # Options for testing stdout (optional)
+    contains:                        # List of strings which should be in stdout (optional)
+      - "hello Test!"

@@ -5,9 +5,9 @@ task hello {
     String name
   }
 
-  command <<<
+  command {
     echo 'hello ${name}!'
-  >>>
+  }
 
   output {
     File response = stdout()
