@@ -24,6 +24,6 @@ task hello {
   }
 }
 
-workflow test {
+workflow example {
   call hello
 }

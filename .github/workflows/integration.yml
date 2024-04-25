@@ -1,0 +1,49 @@
+name: integration test
+on: [pull_request]
+
+defaults:
+  run:
+    # This is needed for miniconda, see:
+    # https://github.com/marketplace/actions/setup-miniconda#important.
+    shell: bash -l {0}
+
+jobs:
+  miniwdl_check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test:
+          - integration
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.9
+    - name: Install miniwdl
+      run: |
+        python -m pip install --upgrade pip
+        pip3 install miniwdl
+        pip3 install pytest-workflow
+        mkdir ~/temp
+    - name: Run unit tests
+      # Use --symlink to limit disk usage.
+      run: >- 
+        pytest --keep-workflow-wd-on-fail --git-aware --tag ${{ matrix.test }} 
+        --symlink tests/ --basetemp ~/temp
+    - name: Check miniwdl log in case of failure.
+      if: ${{ failure() }}
+      # Get the last 1000 lines of the miniwdl log to catch the error.
+      run: bash -c 'tail -n 1000 /home/runner/temp/*/task.out'
+    - name: Check job stderr messages in case of failure
+      if: ${{ failure() }}
+      run: >- 
+        bash -c '
+        for file in $(find /home/runner/temp/ -name stderr.txt); 
+        do echo $file; cat $file; done'
+    - name: Check job stdout messages in case of failure
+      if: ${{ failure() }}
+      run: >- 
+        bash -c '
+        for file in $(find /home/runner/temp/ -name stdout.txt); 
+        do echo $file; cat $file; done'
