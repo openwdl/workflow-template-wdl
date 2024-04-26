@@ -60,7 +60,7 @@ Additionally, the [wdl syntax](.github/workflows/lint.yml) is checked using the 
 #### Test cromwell/womtools installation
 
 - open a command prompt and run...
-- `cromwell run test/test.wdl`
+- `cromwell run tests/test.wdl`
 - …test of the example workflow
 - should print numerous log messages, and conclude with... 
 - `Workflow HelloWorld complete. Final Outputs:` 
@@ -70,7 +70,7 @@ Additionally, the [wdl syntax](.github/workflows/lint.yml) is checked using the 
 #### Test sprocket installation
 
 - open a command prompt and run...
-- `sprocket lint test/test.wdl`
+- `sprocket lint tests/test.wdl`
 - should print the following error
 ```
 workflow HelloWorld {
