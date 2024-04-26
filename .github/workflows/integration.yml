@@ -33,10 +33,9 @@ jobs:
         --symlink tests/ --basetemp ~/temp
     - name: Check miniwdl log in case of failure.
       if: ${{ failure() }}
-      run: |
-         ls -ltra /home/runner/temp/*/
+      run: >-
          # Get the last 1000 lines of the miniwdl log to catch the error.
-         bash -c 'tail -n 1000 /home/runner/temp/*/task.out'
+         bash -c 'tail -n 1000 /home/runner/temp/*/workflow.log'
     - name: Check job stderr messages in case of failure
       if: ${{ failure() }}
       run: >- 
