@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         test:
-          - integration
+          - test-example
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
@@ -26,15 +26,16 @@ jobs:
         pip3 install miniwdl
         pip3 install pytest-workflow
         mkdir ~/temp
-    - name: Run unit tests
+    - name: Run integration tests
       # Use --symlink to limit disk usage.
       run: >- 
         pytest --keep-workflow-wd-on-fail --git-aware --tag ${{ matrix.test }} 
         --symlink tests/ --basetemp ~/temp
     - name: Check miniwdl log in case of failure.
       if: ${{ failure() }}
-      # Get the last 1000 lines of the miniwdl log to catch the error.
-      run: bash -c 'tail -n 1000 /home/runner/temp/*/task.out'
+      run: >-
+         # Get the last 1000 lines of the miniwdl log to catch the error.
+         bash -c 'tail -n 1000 /home/runner/temp/*/workflow.log'
     - name: Check job stderr messages in case of failure
       if: ${{ failure() }}
       run: >- 
