@@ -1,5 +1,4 @@
 - name: test-example
-  tags: integration
   command: miniwdl run -i tests/inputs/example.inputs.json -d test-output/ hello.wdl
   files:
     - path: test-output/_LAST/stdout.txt
