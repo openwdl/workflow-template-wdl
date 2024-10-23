@@ -55,7 +55,7 @@ jobs:
   sprocket-lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4v2
+    - uses: actions/checkout@v4
     - name: Run sprocket
       uses: stjude-rust-labs/sprocket-action@v0.4.0
       with:
