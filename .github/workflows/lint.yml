@@ -56,11 +56,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Update Rust
-      run: rustup update nightly && rustup default nightly 
-    - name: Install sprocket
-      run: cargo install sprocket
-    - name: Validate wdls with Sprocket
-      run: |
-        EXITCODE=0
-        echo "Checking WDL files using \`sprocket lint\`."
+    - name: Run sprocket
+      uses: stjude-rust-labs/sprocket-action@v0.5.0
+      with:
+        lint: true
+        deny-warnings: true
+        deny-notes: true
